@@ -1,0 +1,97 @@
+package basictests;
+
+//without creating objects, directly use.
+import static io.restassured.RestAssured.given;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.testng.annotations.Test;
+
+import io.restassured.http.ContentType;
+
+/**
+ * To update (put operation) data use simple map collection or use json libraries like gson,
+ * Jackson, json.
+ *
+ * JSON Simple: Library to serialize and deserialize JSON data. use
+ * toJSONString() for better results for serialization.
+ * 
+ * @author Rajesh Durgam
+ * @version 1.0
+ * @since 2021-02-08
+ */
+public class RestAssuredPUTTests {
+
+	@Test
+	void test_01_BDD_put() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "Rajesh Durgam");
+		map.put("job", "Software QA Engg");
+
+		System.out.println("map > " + map);
+
+		// Use JSON Simple library to serialize map data to json
+		JSONObject payload = new JSONObject(map);
+		System.out.println(payload);
+		
+		given().
+			header("Content-Type", "application/json").
+			contentType(ContentType.JSON).
+			accept(ContentType.JSON).
+			body(payload.toJSONString()).
+		when().
+			put("https://reqres.in/api/users/1").
+		then().
+			statusCode(201);
+	}
+	
+	@Test
+	void test_02_BDD_patch() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "Rajesh Durgam");
+		map.put("job", "Software QA Engg");
+
+		System.out.println("map > " + map);
+
+		// Use JSON Simple library to serialize map data to json
+		JSONObject payload = new JSONObject(map);
+		System.out.println(payload);
+		
+		given().
+			header("Content-Type", "application/json").
+			contentType(ContentType.JSON).
+			accept(ContentType.JSON).
+			body(payload.toJSONString()).
+		when().
+			patch("https://reqres.in/api/users/1").
+		then().
+			statusCode(201);
+	}
+
+	@Test
+	void test_01_how_to_use_JSON_Library() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "Rajesh Durgam");
+		map.put("job", "Software QA Engg");
+
+		System.out.println("map > " + map);
+
+		// Use JSON Simple library to serialize map data to json
+		JSONObject payload = new JSONObject(map);
+		System.out.println(payload);
+		System.out.println(payload.toJSONString());
+
+	}
+
+	@Test
+	void test_02_how_to_use_JSON_Library_without_map() {
+		JSONObject payload = new JSONObject();
+		payload.put("name", "Rajesh Durgam");
+		payload.put("job", "Software QA Engg");
+		System.out.println(payload);
+		System.out.println(payload.toJSONString());
+
+	}
+}
