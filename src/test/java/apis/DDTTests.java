@@ -27,7 +27,7 @@ public class DDTTests {
 
 		users[1][0] = "Herald";
 		users[1][1] = "Finch";
-		users[1][2] = 2;
+		users[1][2] = 20;
 
 		return users;
 
